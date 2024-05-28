@@ -1,0 +1,69 @@
+<mat-card class="center-card">
+    <mat-card-content>
+        <div>
+            <!-- creating a form -->
+            <form [formGroup]="postForm">
+                <!-- iss from ke tag mein hume controls ko mention karna hai, uske mat-form-field ka use karenge -->
+                <mat-form-field appearance="fill" >
+                    <!-- Label -->
+                    <mat-label>Name</mat-label>
+                    <!-- uss label ke liye input lenge -->
+                    <input matInput formControlName="name">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" >
+                    <!-- Label -->
+                    <mat-label>Img</mat-label>
+                    <!-- uss label ke liye input lenge -->
+                    <input matInput formControlName="img">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" >
+                    <!-- Label -->
+                    <mat-label>Posted By</mat-label>
+                    <!-- uss label ke liye input lenge -->
+                    <input matInput formControlName="postedBy">
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" >
+                    <!-- Label -->
+                    <mat-label>Content</mat-label>
+                    <!-- uss label ke liye input lenge -->
+                    <textarea matInput rows="5" formControlName="content"></textarea>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" >
+                    <!-- Label -->
+                    <mat-label>Tags</mat-label>
+                    <!-- uss label ke liye input lenge -->
+                    <mat-chip-grid #chipGrid aria-label="Enter tags">
+                        <!-- tags ko show karne ke liye code likhenge -->
+                        <!-- humne remove ka event use kiya hai or usme remove() method ko call kiya or usme tag ko pass kar diya -->
+                        <mat-chip-row *ngFor="let tag of tags; let i =index" (removed)="remove(tag)">
+                            <!-- tag ko show karenge using interpolation binding -->
+                            {{tag}}   
+
+                            <!-- button to remove the tags -->
+                            <button matChipRemove>
+                                <mat-icon>Cancel</mat-icon>
+                            </button>
+                        </mat-chip-row>
+
+                        <!-- Tag ko get karne ke liye hum input use karenge -->
+                        <input placeholder="New Tag..."
+                        [matChipInputFor]="chipGrid"
+                        (matChipInputTokenEnd)="add($event)"
+                        />
+
+                    </mat-chip-grid>
+                </mat-form-field>
+
+
+                <!-- button to creat the new post -->
+                <button mat-raised-button color="primary" style="float: right;"
+                [disabled]="!postForm.valid" (click)="createPost()">Create New Post</button>
+
+            </form>
+        </div>
+    </mat-card-content>
+</mat-card>
